@@ -79,7 +79,6 @@ private PreferenceManager preferenceManager;
         });
 
     }
-
     private void  showToast(String mess){
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
     }

@@ -57,7 +57,10 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBinding.buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signUp();
+                if(isValidSignup()){
+                    signUp();
+                }
+
             }
         });
 
@@ -90,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
             preferenceManager.putString(Constants.KEY_NAME,signUpBinding.inputName.getText().toString());
             preferenceManager.putString(Constants.KEY_IMAGE,encodedImage );
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(),SignInActivity.class);
             startActivity(intent);
 
 
@@ -155,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
         }else if (signUpBinding.inputComfirmPassword.getText().toString().trim().isEmpty()) {
             showToast("Mật khẩu không được để trống");
             return  false;
-        }else if (!signUpBinding.inputComfirmPassword.getText().toString().equals(signUpBinding.inputComfirmPassword.getText().toString())) {
+        }else if (!signUpBinding.inputPassword.getText().toString().equals(signUpBinding.inputComfirmPassword.getText().toString())) {
             showToast("Mật khẩu không khớp");
             return  false;
         }else {

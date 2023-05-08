@@ -13,7 +13,7 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="input_background">#ececec</color>
-    <color name="icon_background">#20ffffff</color>
+    <color name="icon_background">#20837D7D</color>
     <color name="error">#B00020</color>
     <color name="received_message_background">#090d16</color>
 

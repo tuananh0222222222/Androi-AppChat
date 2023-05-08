@@ -4,15 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:animateLayoutChanges="true"
     tools:context=".activities.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfie"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:background="@drawable/background_icon"
+        android:scaleType="centerCrop"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/_8sdp"
+        android:layout_height="@dimen/_40sdp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageSignout"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:background="@drawable/background_icon"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_back"
+        android:tint="@color/white"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="@dimen/_8sdp"
+        android:layout_height="@dimen/_40sdp"
+
+        />
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageProfie"
+        app:layout_constraintEnd_toStartOf="@+id/imageSignout"
+        app:layout_constraintStart_toEndOf="@+id/imageProfie"
+        app:layout_constraintTop_toTopOf="@+id/imageProfie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
