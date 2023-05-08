@@ -17,7 +17,7 @@
         android:orientation="vertical"
         android:gravity="center" >
         <TextView
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="Đăng nhập"
             android:textSize="@dimen/_23ssp"
             android:textColor="@color/black"
@@ -29,7 +29,7 @@
 
         <EditText
             android:id="@+id/inputEmail"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_60sdp"
             android:background="@drawable/background_input"
             android:hint="Email"
             android:imeOptions="actionNext"

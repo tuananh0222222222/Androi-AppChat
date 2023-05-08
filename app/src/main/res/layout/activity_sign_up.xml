@@ -21,7 +21,7 @@
 
 
         <TextView
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:text="Đăng ký"
             android:textSize="@dimen/_23ssp"
             android:textColor="@color/black"
@@ -29,8 +29,10 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"    />
+
         <FrameLayout
-            android:layout_marginTop="@dimen/_20sdp"
+            android:id="@+id/layoutImage"
+            android:layout_marginTop="@dimen/_16sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
             <com.makeramen.roundedimageview.RoundedImageView
@@ -41,6 +43,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp" />
             <TextView
+                android:id="@+id/textAddImage"
                 android:layout_gravity="center"
                 android:textColor="@color/secondary_text"
                 android:text="Thêm ảnh"
@@ -105,9 +108,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp" />
 
-
+    <FrameLayout
+        android:layout_marginTop="@dimen/_16sdp"
+        android:animateLayoutChanges="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSignIn"
+            android:id="@+id/buttonSignup"
             android:layout_marginTop="@dimen/_20sdp"
             android:text="Đăng ký"
             android:textColor="@color/white"
@@ -116,6 +123,14 @@
             app:cornerRadius="@dimen/_8ssp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp" />
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"/>
+    </FrameLayout>
+
         <TextView
             android:id="@+id/textSignIn"
             android:layout_marginTop="@dimen/_20sdp"
