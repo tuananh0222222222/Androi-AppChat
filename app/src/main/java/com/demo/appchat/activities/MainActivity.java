@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Toast;
 
 import com.demo.appchat.R;
@@ -40,7 +41,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private  void setListener(){
-        mainBinding.imageSignout.setOnClickListener(v -> signOut());
+        mainBinding.imageSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+        mainBinding.fabNewChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),UserActivity.class));
+            }
+        });
     }
     // load image
     private void loadUserDetail() {
