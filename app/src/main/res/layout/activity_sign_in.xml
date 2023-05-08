@@ -56,17 +56,30 @@
             android:textSize="@dimen/_13ssp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp" />
-        
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSignIn"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:text="Đăng nhập"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
-            android:textStyle="bold"
-            app:cornerRadius="@dimen/_8ssp"
+
+        <FrameLayout
+            android:layout_marginTop="@dimen/_15sdp"
+            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp" />
+            android:layout_height="wrap_content" >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSignIn"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:text="Đăng nhập"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_8ssp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"/>
+        </FrameLayout>
+
         <TextView
             android:id="@+id/textCreateAccout"
             android:layout_marginTop="@dimen/_30sdp"
