@@ -2,12 +2,14 @@ package com.demo.appchat.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.demo.appchat.R;
 import com.demo.appchat.adapter.UserAdapter;
 import com.demo.appchat.databinding.ActivityUserBinding;
+import com.demo.appchat.listeners.UserListener;
 import com.demo.appchat.models.User;
 import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
@@ -17,7 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity implements UserListener {
 
     private ActivityUserBinding binding;
     private PreferenceManager preferenceManager;
@@ -56,8 +58,9 @@ public class UserActivity extends AppCompatActivity {
                             user.token = documentSnapshot.getString(Constants.KEY_FCM_TOKEN);
                             users.add(user);
 
-                        }if(users.size() > 0 ){
-                            UserAdapter userAdapter = new UserAdapter(users);
+                        }
+                        if(users.size() > 0 ){
+                            UserAdapter userAdapter = new UserAdapter(users,this);
                             binding.userRecyclerView.setAdapter(userAdapter);
                             binding.userRecyclerView.setVisibility(View.VISIBLE);
 
@@ -80,5 +83,13 @@ public class UserActivity extends AppCompatActivity {
         }else {
             binding.progressBar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onUserClicked(User user) {
+        Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
+        intent.putExtra(Constants.KEY_USER, user);
+        startActivity(intent);
+        finish();
     }
 }

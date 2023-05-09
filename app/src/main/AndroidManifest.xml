@@ -14,7 +14,8 @@
         android:theme="@style/Theme.Appchat"
         tools:targetApi="31">
         <activity
-            android:name=".ChatActivity"
+            android:name=".activities.ChatActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".activities.UserActivity"

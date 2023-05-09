@@ -151,7 +151,8 @@ public class SignUpActivity extends AppCompatActivity {
             return  false;
         }else if (!Patterns.EMAIL_ADDRESS.matcher(signUpBinding.inputEmail.getText().toString()).matches()) {
             showToast("Email không đúng định dạng");
-            return  false;
+            return false;
+
         }else if (signUpBinding.inputPassword.getText().toString().trim().isEmpty()) {
             showToast("Mật khẩu không được để trống");
             return  false;

@@ -4,12 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.demo.appchat.databinding.ItemContainerUserBinding;
+import com.demo.appchat.listeners.UserListener;
 import com.demo.appchat.models.User;
 
 import java.util.List;
@@ -17,9 +19,11 @@ import java.util.List;
 public class UserAdapter extends  RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
     private  final List<User> users;
+    private  final  UserListener userListener;
 
-    public  UserAdapter(List<User> users){
+    public  UserAdapter(List<User> users ,UserListener userListener){
         this.users= users;
+        this.userListener = userListener;
     }
 
     @NonNull
@@ -54,6 +58,12 @@ public class UserAdapter extends  RecyclerView.Adapter<UserAdapter.UserViewHolde
             binding.textName.setText(user.name);
             binding.textEmail.setText(user.email);
             binding.imageProfie.setImageBitmap(getUserImage(user.image));
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    userListener.onUserClicked(user);
+                }
+            });
         }
     }
 
