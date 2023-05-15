@@ -32,8 +32,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
 
     private ActivityChatBinding binding;
     private User receivedUser;
@@ -42,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     private  PreferenceManager preferenceManager;
     private FirebaseFirestore db ;
     private String convertionId = null;
+    private boolean isReceiverAvailable = false;
 
 
     @Override
@@ -94,6 +96,28 @@ public class ChatActivity extends AppCompatActivity {
        binding.inputMess.setText(null );
     }
 
+    private void listenAvabilityOfReceiver(){
+        db.collection(Constants.KEY_COLLECTION_USER).document(
+                receivedUser.id
+        ).addSnapshotListener(ChatActivity.this ,(value,error) -> {
+            if(error != null){
+                return;
+            }
+            if(value != null){
+                if(value.getLong(Constants.KEY_AVAILABILITY) != null){
+                    int avability = Objects.requireNonNull(
+                            value.getLong(Constants.KEY_AVAILABILITY)
+                    ).intValue();
+                    isReceiverAvailable = avability == 1;
+                }
+            }
+            if(isReceiverAvailable){
+                binding.textAvability.setVisibility(View.VISIBLE);
+            }else {
+                binding.textAvability.setVisibility(View.GONE);
+            }
+        });
+    }
     private void listenMessages(){
         db.collection(Constants.KEY_COLLECTION_CHAT)
                 .whereEqualTo(Constants.KEY_SENDER_ID,preferenceManager.getString(Constants.KEY_USER_ID))
@@ -199,4 +223,10 @@ public class ChatActivity extends AppCompatActivity {
             convertionId = documentSnapshot.getId();
         }
     };
+
+    @Override
+    protected void onResume() {
+            super.onResume();
+             listenAvabilityOfReceiver();
+    }
 }
