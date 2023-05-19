@@ -57,7 +57,7 @@ private PreferenceManager preferenceManager;
 
                     }else {
                         loading(false);
-                        showToast("Có lỗi xảy ra!");
+                        showToast("Tài khoản mật khẩu không đúng");
                     }
                 });
     }

@@ -149,6 +149,7 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::updateToken);
     }
     private  void updateToken(String token){
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN,token);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference documentReference = db.collection(Constants.KEY_COLLECTION_USER).document(
                 preferenceManager.getString(Constants.KEY_USER_ID)

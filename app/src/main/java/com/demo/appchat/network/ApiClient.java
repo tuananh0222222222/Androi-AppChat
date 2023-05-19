@@ -9,7 +9,7 @@ public class ApiClient {
     public static Retrofit getclient(){
         if(retrofit == null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://fcm/googleapis/fcm/")
+                    .baseUrl("https://fcm.googleapis.com/fcm/")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .build();
         }

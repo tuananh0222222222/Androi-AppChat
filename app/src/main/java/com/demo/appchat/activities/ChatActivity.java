@@ -1,12 +1,15 @@
 package com.demo.appchat.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.demo.appchat.R;
 import com.demo.appchat.adapter.ChatAdapter;
@@ -14,6 +17,8 @@ import com.demo.appchat.databinding.ActivityChatBinding;
 
 import com.demo.appchat.models.ChatMessage;
 import com.demo.appchat.models.User;
+import com.demo.appchat.network.ApiClient;
+import com.demo.appchat.network.ApiService;
 import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +28,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +44,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ChatActivity extends BaseActivity {
 
     private ActivityChatBinding binding;
@@ -42,7 +56,7 @@ public class ChatActivity extends BaseActivity {
     private ChatAdapter chatAdapter;
     private  PreferenceManager preferenceManager;
     private FirebaseFirestore db ;
-    private String convertionId = null;
+    private String conversionId = null;
     private boolean isReceiverAvailable = false;
 
 
@@ -79,7 +93,7 @@ public class ChatActivity extends BaseActivity {
         message.put(Constants.KEY_MESSAGE, binding.inputMess.getText().toString());
         message.put(Constants.KEY_TIMESTAMP, new Date());
        db.collection(Constants.KEY_COLLECTION_CHAT).add(message);
-       if(convertionId != null){
+       if(conversionId != null){
            updateConversion(binding.inputMess.getText().toString());
        }else {
            HashMap<String ,Object> conversion = new HashMap<>();
@@ -93,10 +107,67 @@ public class ChatActivity extends BaseActivity {
            conversion.put(Constants.KEY_TIMESTAMP,new Date());
            addConversion(conversion);
        }
+       if(!isReceiverAvailable){
+           try {
+            JSONArray token = new JSONArray();
+            token.put(receivedUser.token);
+
+            JSONObject data = new JSONObject();
+               data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
+               data.put(Constants.KEY_NAME, preferenceManager.getString(Constants.KEY_NAME));
+               data.put(Constants.KEY_FCM_TOKEN, preferenceManager.getString(Constants.KEY_FCM_TOKEN));
+               data.put(Constants.KEY_MESSAGE, binding.inputMess.getText().toString());
+
+               JSONObject body = new JSONObject();
+               body.put(Constants.REMOTE_MSG_DATA,data);
+               body.put(Constants.REMOTE_MSG_REGISTRATIONS_ID,token);
+
+               sendNotification(body.toString());
+           }catch (Exception e){
+               showToast(e.getMessage());
+           }
+       }
        binding.inputMess.setText(null );
     }
 
-    private void listenAvabilityOfReceiver(){
+    private void showToast(String mess){
+        Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
+    }
+    private void sendNotification(String messageBody){
+        ApiClient.getclient().create(ApiService.class).sendMessage(
+                Constants.getRemoteMsgHeaders(),
+                messageBody
+        ).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call,@NonNull  Response<String> response) {
+                if(response.isSuccessful()){
+                    try {
+                       if(response.body() != null ){
+                           JSONObject responseJson = new JSONObject(response.body());
+                            JSONArray results  = responseJson.getJSONArray("results");
+                            if(responseJson.getInt("failure") == 1){
+                                JSONObject err = (JSONObject) results.get(0);
+                                showToast(err.getString("error"));
+                                return;
+                            }
+                       }
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    showToast("nofication sent succes");
+                }else {
+                    showToast("error" + response.code());
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull  Call<String> call,@NonNull  Throwable t) {
+                showToast(t.getMessage());
+            }
+        });
+    }
+    private void listenAvaibilityOfReceiver(){
         db.collection(Constants.KEY_COLLECTION_USER).document(
                 receivedUser.id
         ).addSnapshotListener(ChatActivity.this ,(value,error) -> {
@@ -105,10 +176,16 @@ public class ChatActivity extends BaseActivity {
             }
             if(value != null){
                 if(value.getLong(Constants.KEY_AVAILABILITY) != null){
-                    int avability = Objects.requireNonNull(
+                    int availability = Objects.requireNonNull(
                             value.getLong(Constants.KEY_AVAILABILITY)
                     ).intValue();
-                    isReceiverAvailable = avability == 1;
+                    isReceiverAvailable = availability == 1;
+                }
+                receivedUser.token = value.getString(Constants.KEY_FCM_TOKEN);
+                if(receivedUser.image == null){
+                    receivedUser.image = value.getString(Constants.KEY_IMAGE);
+                    chatAdapter.setReceiverProfileImage(getBitMapEncode(receivedUser.image));
+                    chatAdapter.notifyItemChanged(0,chatMessages.size());
                 }
             }
             if(isReceiverAvailable){
@@ -156,14 +233,20 @@ public class ChatActivity extends BaseActivity {
             binding.chatRecycleView.setVisibility(View.VISIBLE);
         }
         binding.progressBar.setVisibility(View.GONE);
-        if(convertionId == null){
+        if(conversionId == null){
             checkForConvertion();
         }
     };
 
     private Bitmap getBitMapEncode(String encodeImage){
-        byte[] bytes = Base64.decode(encodeImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        if(encodeImage != null){
+            byte[] bytes = Base64.decode(encodeImage, Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+        }
+        else {
+            return null;
+        }
+
     }
 
 
@@ -185,11 +268,11 @@ public class ChatActivity extends BaseActivity {
     private  void addConversion(HashMap<String,Object> conversion){
         db.collection(Constants.KEY_CONVERSATIONS)
                 .add(conversion)
-                .addOnSuccessListener(documentReference -> convertionId = documentReference.getId());
+                .addOnSuccessListener(documentReference -> conversionId = documentReference.getId());
     }
 
     private  void updateConversion(String mess){
-        DocumentReference documentReference= db.collection(Constants.KEY_CONVERSATIONS).document(convertionId);
+        DocumentReference documentReference= db.collection(Constants.KEY_CONVERSATIONS).document(conversionId);
         documentReference.update(
                 Constants.KEY_LAST_MESSAGE,mess,
                 Constants.KEY_TIMESTAMP,new Date()
@@ -220,13 +303,13 @@ public class ChatActivity extends BaseActivity {
     private  final OnCompleteListener<QuerySnapshot> conversionOnComplete = task -> {
         if(task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
             DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
-            convertionId = documentSnapshot.getId();
+            conversionId = documentSnapshot.getId();
         }
     };
 
     @Override
     protected void onResume() {
             super.onResume();
-             listenAvabilityOfReceiver();
+        listenAvaibilityOfReceiver();
     }
 }
