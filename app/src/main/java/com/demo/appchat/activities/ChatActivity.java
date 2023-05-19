@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.Api;
 
 
 import org.json.JSONArray;
@@ -109,8 +111,8 @@ public class ChatActivity extends BaseActivity {
        }
        if(!isReceiverAvailable){
            try {
-            JSONArray token = new JSONArray();
-            token.put(receivedUser.token);
+            JSONArray tokens = new JSONArray();
+            tokens.put(receivedUser.token);
 
             JSONObject data = new JSONObject();
                data.put(Constants.KEY_USER_ID, preferenceManager.getString(Constants.KEY_USER_ID));
@@ -120,11 +122,13 @@ public class ChatActivity extends BaseActivity {
 
                JSONObject body = new JSONObject();
                body.put(Constants.REMOTE_MSG_DATA,data);
-               body.put(Constants.REMOTE_MSG_REGISTRATIONS_ID,token);
+               body.put(Constants.REMOTE_MSG_REGISTRATIONS_ID,tokens);
 
                sendNotification(body.toString());
+
            }catch (Exception e){
                showToast(e.getMessage());
+               Log.d("fcm" , e.getMessage());
            }
        }
        binding.inputMess.setText(null );
@@ -133,37 +137,37 @@ public class ChatActivity extends BaseActivity {
     private void showToast(String mess){
         Toast.makeText(this, mess, Toast.LENGTH_SHORT).show();
     }
+
     private void sendNotification(String messageBody){
         ApiClient.getclient().create(ApiService.class).sendMessage(
                 Constants.getRemoteMsgHeaders(),
                 messageBody
         ).enqueue(new Callback<String>() {
             @Override
-            public void onResponse(@NonNull Call<String> call,@NonNull  Response<String> response) {
+            public void onResponse(@NonNull Call<String> call,@NonNull Response<String> response) {
                 if(response.isSuccessful()){
                     try {
-                       if(response.body() != null ){
-                           JSONObject responseJson = new JSONObject(response.body());
-                            JSONArray results  = responseJson.getJSONArray("results");
+                        if(response.body() != null){
+                            JSONObject responseJson = new JSONObject(response.body());
+                            JSONArray results = responseJson.getJSONArray("result");
                             if(responseJson.getInt("failure") == 1){
-                                JSONObject err = (JSONObject) results.get(0);
-                                showToast(err.getString("error"));
+                                JSONObject error = (JSONObject)    results.get(0);
+                                showToast("loi"+error.getString("error"));
                                 return;
                             }
-                       }
+                        }
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
-                    showToast("nofication sent succes");
+                    showToast("gui thanh cong");
                 }else {
-                    showToast("error" + response.code());
+                    showToast("error " +response.body());
                 }
-
             }
 
             @Override
-            public void onFailure(@NonNull  Call<String> call,@NonNull  Throwable t) {
-                showToast(t.getMessage());
+            public void onFailure(@NonNull Call<String> call,@NonNull Throwable t) {
+                showToast("loi" + t.getMessage());
             }
         });
     }
@@ -174,8 +178,8 @@ public class ChatActivity extends BaseActivity {
             if(error != null){
                 return;
             }
-            if(value != null){
-                if(value.getLong(Constants.KEY_AVAILABILITY) != null){
+            if(value != null) {
+                if (value.getLong(Constants.KEY_AVAILABILITY) != null) {
                     int availability = Objects.requireNonNull(
                             value.getLong(Constants.KEY_AVAILABILITY)
                     ).intValue();

@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -23,18 +22,15 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
 
-public class MessagingService extends FirebaseMessagingService {
-
+public class MessageService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
-
     }
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
-
         User user = new User();
         user.id = message.getData().get(Constants.KEY_USER_ID);
         user.name = message.getData().get(Constants.KEY_NAME);
@@ -43,7 +39,7 @@ public class MessagingService extends FirebaseMessagingService {
         int notificationId = new Random().nextInt();
         String chanelId = "chat_message";
 
-        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        Intent intent = new Intent(this, ChatActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(Constants.KEY_USER, user);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
@@ -60,17 +56,23 @@ public class MessagingService extends FirebaseMessagingService {
         builder.setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence chanelName = "chat Message";
-            String chanelDes = "this notifi";
+            CharSequence charSequence = "Chat Message";
+            String chanelDescription = "this notification chanel is used for chat message notifications";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-            NotificationChannel chanel = new NotificationChannel(chanelId, chanelName, importance);
-            chanel.setDescription(chanelDes);
+            NotificationChannel channel = new NotificationChannel(chanelId, charSequence, importance);
+            channel.setDescription(chanelDescription);
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(chanel);
+            notificationManager.createNotificationChannel(channel);
         }
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
 
-        notificationManagerCompat.notify(notificationId, builder.build());
+            notificationManagerCompat.notify(notificationId, builder.build());
+            return;
+        }
+
+
+
+
     }
 }
