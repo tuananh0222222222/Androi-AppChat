@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
-    android:background="@color/primary"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ChatActivity">
@@ -21,7 +21,8 @@
 
     <View
         android:id="@+id/headerBackground"
-        android:background="@color/primary"
+        android:background="@color/white"
+
         app:layout_constraintBottom_toTopOf="@id/viewSupporter"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
         android:src="@drawable/ic_back_v1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
+        app:tint="@color/send_btn"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"   />
 
@@ -49,7 +50,7 @@
         android:src="@drawable/ic_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
+        app:tint="@color/send_btn"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"   />
 
@@ -60,7 +61,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageBack"
@@ -76,7 +77,9 @@
         app:layout_constraintTop_toBottomOf="@id/imageBack"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/primary"
+
+        android:translationZ="@dimen/_10ssp"
+
         />
 
 
@@ -108,21 +111,21 @@
         android:id="@+id/layoutSend"
         android:layout_marginEnd="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        android:background="@drawable/background_chat_input"
+        android:layout_marginBottom="@dimen/_8sdp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="@dimen/_40sdp"
+        android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_40sdp"   >
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:padding="@dimen/_8sdp"
             android:src="@drawable/ic_send"
-            app:tint="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"    />
+            app:tint="@color/send_btn" />
     </FrameLayout>
 
     <EditText
@@ -130,6 +133,7 @@
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
+
 
         android:layout_marginRight="@dimen/_8sdp"
         android:layout_marginBottom="@dimen/_12sdp"
@@ -139,13 +143,13 @@
         android:inputType="text"
         android:paddingStart="@dimen/_16sdp"
         android:paddingEnd="@dimen/_16sdp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textColorHint="@color/secondary_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/layoutSend"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_40sdp"/>
+        android:layout_height="@dimen/_30sdp"/>
 
     <TextView
         android:id="@+id/textAvability"

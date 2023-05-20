@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Appchat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="android:startColor" tools:targetApi="l">@color/primary</item>
+        <item name="colorPrimary">@color/send_btn</item>
+        <item name="android:startColor" tools:targetApi="l">@color/send_btn</item>
     </style>
 </resources>

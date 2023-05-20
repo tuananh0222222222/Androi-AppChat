@@ -17,6 +17,8 @@
     <color name="error">#B00020</color>
     <color name="received_message_background">#090d16</color>
 
+    <color name="send_btn">#2196F3</color>
+    <color name="chat_input">#E4E2E7</color>
 
 
 </resources>
