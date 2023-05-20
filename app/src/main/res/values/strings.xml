@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Appchat</string>
     <string name="online">online</string>
+    <string name="logout">Đăng xuất</string>
 </resources>

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.demo.appchat.databinding.ItemContainerUserBinding;
+import com.demo.appchat.databinding.LayoutNavigationHeaderBinding;
 import com.demo.appchat.listeners.UserListener;
 import com.demo.appchat.models.User;
 
@@ -49,12 +50,15 @@ public class UserAdapter extends  RecyclerView.Adapter<UserAdapter.UserViewHolde
 
     class UserViewHolder extends RecyclerView.ViewHolder{
         ItemContainerUserBinding binding;
+        LayoutNavigationHeaderBinding headerBinding;
         UserViewHolder(ItemContainerUserBinding itemContainerUserBinding){
             super(itemContainerUserBinding.getRoot());
             binding = itemContainerUserBinding;
+
         }
 
         void  setUserData(User user){
+
             binding.textName.setText(user.name);
             binding.textEmail.setText(user.email);
             binding.imageProfie.setImageBitmap(getUserImage(user.image));

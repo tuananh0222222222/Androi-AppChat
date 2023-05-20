@@ -149,7 +149,8 @@
         app:layout_constraintEnd_toStartOf="@+id/layoutSend"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_30sdp"/>
+        android:layout_height="@dimen/_30sdp"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/textAvability"

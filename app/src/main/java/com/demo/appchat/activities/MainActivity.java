@@ -1,18 +1,28 @@
 package com.demo.appchat.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+
+import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.Toast;
+
 
 import com.demo.appchat.R;
 import com.demo.appchat.adapter.RecentConversationAdapter;
 import com.demo.appchat.databinding.ActivityMainBinding;
+import com.demo.appchat.databinding.LayoutNavigationHeaderBinding;
 import com.demo.appchat.listeners.ConversionListener;
 import com.demo.appchat.models.ChatMessage;
 
@@ -20,6 +30,7 @@ import com.demo.appchat.models.User;
 import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 
@@ -35,13 +46,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements ConversionListener {
+public class MainActivity extends BaseActivity implements ConversionListener  {
 
+    private LayoutNavigationHeaderBinding layoutNavigationHeaderBinding;
     private ActivityMainBinding mainBinding;
+
     private PreferenceManager preferenceManager;
     private List<ChatMessage> conversation;
     private RecentConversationAdapter conversationAdapter;
     private FirebaseFirestore database;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +66,25 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
+        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
+        mainBinding.openNavigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+
+        });
         init();
         loadUserDetail();
         getToken();
         setListener();
         listenConversation();
+
+
     }
+
+
 
     private void init(){
         conversation = new ArrayList<>();
@@ -65,25 +93,36 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         database = FirebaseFirestore.getInstance();
     }
     private  void setListener(){
-        mainBinding.imageSignout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        });
+
+//        mainBinding.doanchat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                signOut();
+//            }
+//        });
+
         mainBinding.fabNewChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),UserActivity.class));
             }
         });
+
+
+
+
     }
     // load image
     private void loadUserDetail() {
-        mainBinding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
+
+//        mainBinding.textName.setText(preferenceManager.getString(Constants.KEY_NAME));
+
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
+
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-        mainBinding.imageProfie.setImageBitmap(bitmap);
+//        mainBinding.imageProfie.setImageBitmap(bitmap);
+
+
     }
 
     //showtoat
@@ -181,4 +220,6 @@ public class MainActivity extends BaseActivity implements ConversionListener {
         intent.putExtra(Constants.KEY_USER,user);
         startActivity(intent);
     }
+
+
 }
