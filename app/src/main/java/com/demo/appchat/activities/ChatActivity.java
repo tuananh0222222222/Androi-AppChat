@@ -159,7 +159,7 @@ public class ChatActivity extends BaseActivity {
                     }catch (JSONException e){
                         e.printStackTrace();
                     }
-                    showToast("gui thanh cong");
+//                    showToast("gui thanh cong");
                 }else {
                     showToast("error " +response.body());
                 }
@@ -171,6 +171,7 @@ public class ChatActivity extends BaseActivity {
             }
         });
     }
+
     private void listenAvaibilityOfReceiver(){
         db.collection(Constants.KEY_COLLECTION_USER).document(
                 receivedUser.id

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.demo.appchat.R;
 import com.demo.appchat.adapter.RecentConversationAdapter;
 import com.demo.appchat.databinding.ActivityMainBinding;
+import com.demo.appchat.databinding.ItemContainerRecentConversionBinding;
 import com.demo.appchat.databinding.LayoutNavigationHeaderBinding;
 import com.demo.appchat.listeners.ConversionListener;
 import com.demo.appchat.models.ChatMessage;
@@ -45,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity implements ConversionListener  {
 
@@ -59,22 +61,17 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+
         setContentView(mainBinding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
-        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
-        mainBinding.openNavigation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-
-        });
         init();
         loadUserDetail();
         getToken();
@@ -91,15 +88,11 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
         conversationAdapter = new RecentConversationAdapter(conversation,this);
         mainBinding.conversationRecycleView.setAdapter(conversationAdapter);
         database = FirebaseFirestore.getInstance();
+
     }
     private  void setListener(){
 
-//        mainBinding.doanchat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                signOut();
-//            }
-//        });
+        mainBinding.imageSignout.setOnClickListener(v-> signOut());
 
         mainBinding.fabNewChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +103,9 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
 
 
 
-
     }
+
+
     // load image
     private void loadUserDetail() {
 
@@ -121,6 +115,7 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
 //        mainBinding.imageProfie.setImageBitmap(bitmap);
+
 
 
     }

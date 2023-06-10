@@ -14,7 +14,8 @@
         app:riv_oval="true"
         android:layout_width="@dimen/_46sdp"
         android:layout_height="@dimen/_46sdp" />
-    
+
+
     <View
         android:id="@+id/viewSupporter"
         app:layout_constraintBottom_toBottomOf="@+id/imageProfie"

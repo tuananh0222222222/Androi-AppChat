@@ -93,6 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             preferenceManager.putString(Constants.KEY_USER_ID,documentReference.getId());
             preferenceManager.putString(Constants.KEY_NAME,signUpBinding.inputName.getText().toString());
             preferenceManager.putString(Constants.KEY_IMAGE,encodedImage );
+            showToast("Đăng ký thành công!");
             Intent intent = new Intent(getApplicationContext(),SignInActivity.class);
             startActivity(intent);
 
@@ -142,9 +143,9 @@ public class SignUpActivity extends AppCompatActivity {
             return  false;
         } else if (signUpBinding.inputName.getText().toString().trim().isEmpty()) {
             showToast("Tên không được để trống");
-            return  false;
-        }else if (signUpBinding.inputName.getText().toString().trim().isEmpty()) {
-            showToast("Tên không được để trống");
+            return false;
+        }else if (signUpBinding.inputName.getText().toString().length() <= 5) {
+            showToast("Tên phải trên 5 ký tự");
             return  false;
         }else if (signUpBinding.inputEmail.getText().toString().trim().isEmpty()) {
             showToast("Email không được để trống");
@@ -155,6 +156,10 @@ public class SignUpActivity extends AppCompatActivity {
 
         }else if (signUpBinding.inputPassword.getText().toString().trim().isEmpty()) {
             showToast("Mật khẩu không được để trống");
+            return  false;
+        }
+        else if (signUpBinding.inputPassword.getText().toString().length() <= 5) {
+            showToast("Mật khẩu phải trên 5 ký tự");
             return  false;
         }else if (signUpBinding.inputComfirmPassword.getText().toString().trim().isEmpty()) {
             showToast("Mật khẩu không được để trống");
