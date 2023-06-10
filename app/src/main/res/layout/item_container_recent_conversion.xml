@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_8sdp"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageProfie"
+        android:background="@drawable/background_image"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true"
+        android:layout_width="@dimen/_46sdp"
+        android:layout_height="@dimen/_46sdp" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/textAvability"
+        android:layout_width="@dimen/_13sdp"
+        android:layout_height="@dimen/_13sdp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="38dp"
+        android:visibility="gone"
+        android:background="@drawable/backgroun_active_images"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true" />
+
+    <View
+        android:id="@+id/viewSupporter"
+        app:layout_constraintBottom_toBottomOf="@+id/imageProfie"
+        app:layout_constraintStart_toEndOf="@+id/imageProfie"
+        app:layout_constraintTop_toTopOf="@+id/imageProfie"
+        android:layout_width="1dp"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewSupporter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageProfie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/textRecentMess"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintStart_toEndOf="@id/imageProfie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSupporter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
