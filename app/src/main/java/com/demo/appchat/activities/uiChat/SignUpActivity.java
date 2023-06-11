@@ -1,8 +1,6 @@
-package com.demo.appchat.activities;
+package com.demo.appchat.activities.uiChat;
 
-import androidx.activity.result.ActivityResultCaller;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,11 +19,8 @@ import com.demo.appchat.R;
 import com.demo.appchat.databinding.ActivitySignUpBinding;
 import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;

@@ -1,10 +1,4 @@
-package com.demo.appchat.activities;
-
-import androidx.annotation.NonNull;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+package com.demo.appchat.activities.uiChat;
 
 
 import android.content.Intent;
@@ -13,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 
-import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Toast;
@@ -31,7 +24,6 @@ import com.demo.appchat.models.User;
 import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 
@@ -63,6 +55,9 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
 
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +75,8 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
 
 
     }
+
+
 
 
 
@@ -215,6 +212,7 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
         intent.putExtra(Constants.KEY_USER,user);
         startActivity(intent);
     }
+
 
 
 }

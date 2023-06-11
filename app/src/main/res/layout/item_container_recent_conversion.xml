@@ -15,7 +15,7 @@
         android:layout_width="@dimen/_46sdp"
         android:layout_height="@dimen/_46sdp" />
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <ImageView
         android:id="@+id/textAvability"
         android:layout_width="@dimen/_13sdp"
         android:layout_height="@dimen/_13sdp"

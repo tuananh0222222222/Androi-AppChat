@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.demo.appchat.R;
-import com.demo.appchat.activities.ChatActivity;
+import com.demo.appchat.activities.uiChat.ChatActivity;
 import com.demo.appchat.models.User;
 import com.demo.appchat.utilities.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;

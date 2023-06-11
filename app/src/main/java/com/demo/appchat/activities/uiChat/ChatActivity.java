@@ -1,4 +1,4 @@
-package com.demo.appchat.activities;
+package com.demo.appchat.activities.uiChat;
 
 
 
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.demo.appchat.R;
 import com.demo.appchat.adapter.ChatAdapter;
 import com.demo.appchat.databinding.ActivityChatBinding;
 
+import com.demo.appchat.databinding.ItemContainerRecentConversionBinding;
 import com.demo.appchat.models.ChatMessage;
 import com.demo.appchat.models.User;
 import com.demo.appchat.network.ApiClient;
@@ -29,7 +31,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.protobuf.Api;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 
 import org.json.JSONArray;
@@ -62,10 +64,12 @@ public class ChatActivity extends BaseActivity {
     private boolean isReceiverAvailable = false;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -73,6 +77,7 @@ public class ChatActivity extends BaseActivity {
         serListener();
         init();
         listenMessages();
+
 
     }
 
@@ -173,6 +178,7 @@ public class ChatActivity extends BaseActivity {
     }
 
     private void listenAvaibilityOfReceiver(){
+
         db.collection(Constants.KEY_COLLECTION_USER).document(
                 receivedUser.id
         ).addSnapshotListener(ChatActivity.this ,(value,error) -> {
@@ -194,9 +200,9 @@ public class ChatActivity extends BaseActivity {
                 }
             }
             if(isReceiverAvailable){
-                binding.textAvability.setVisibility(View.VISIBLE);
+                binding.textAvabilitys.setVisibility(View.VISIBLE);
             }else {
-                binding.textAvability.setVisibility(View.GONE);
+                binding.textAvabilitys.setVisibility(View.GONE);
             }
         });
     }

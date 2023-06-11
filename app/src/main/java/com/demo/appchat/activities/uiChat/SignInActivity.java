@@ -1,4 +1,4 @@
-package com.demo.appchat.activities;
+package com.demo.appchat.activities.uiChat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,6 @@ import com.demo.appchat.utilities.Constants;
 import com.demo.appchat.utilities.PreferenceManager;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
 
 public class SignInActivity extends AppCompatActivity {
 private PreferenceManager preferenceManager;

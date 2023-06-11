@@ -14,18 +14,18 @@
         android:theme="@style/Theme.Appchat"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ChatActivity"
+            android:name=".activities.uiChat.ChatActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".activities.UserActivity"
+            android:name=".activities.uiChat.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.SignUpActivity"
+            android:name=".activities.uiChat.SignUpActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.SignInActivity"
+            android:name=".activities.uiChat.SignInActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.uiChat.MainActivity"
             android:exported="false" />
 
     </application>

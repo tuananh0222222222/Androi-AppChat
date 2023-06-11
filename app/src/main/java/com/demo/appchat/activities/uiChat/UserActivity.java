@@ -1,6 +1,4 @@
-package com.demo.appchat.activities;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.demo.appchat.activities.uiChat;
 
 import android.content.Intent;
 import android.os.Bundle;

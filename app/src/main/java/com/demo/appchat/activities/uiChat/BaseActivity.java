@@ -1,4 +1,4 @@
-package com.demo.appchat.activities;
+package com.demo.appchat.activities.uiChat;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
