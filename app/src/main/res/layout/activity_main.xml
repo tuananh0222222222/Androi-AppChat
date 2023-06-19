@@ -38,6 +38,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"    />
 
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageUser"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="44dp"
+                android:src="@drawable/background_image"
+                app:layout_constraintEnd_toEndOf="@+id/imageSignout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="@dimen/_30sdp"
+                app:tint="@color/black"
+                 />
+
             <ImageView
                 android:id="@+id/imageSignout"
                 android:layout_width="@dimen/_20sdp"
