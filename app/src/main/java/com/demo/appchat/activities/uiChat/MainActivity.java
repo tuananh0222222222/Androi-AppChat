@@ -67,17 +67,26 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
         setContentView(mainBinding.getRoot());
         preferenceManager = new PreferenceManager(getApplicationContext());
 
+
+
+
         init();
         loadUserDetail();
         getToken();
         setListener();
         listenConversation();
 
+        profile();
 
     }
 
 
-
+    private  void profile(){
+        mainBinding.imageProfie.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+            startActivity(intent);
+        });
+    }
 
 
     private void init(){
@@ -111,7 +120,7 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-//       mainBinding.imageProfie.setImageBitmap(bitmap);
+//         mainBinding.imageProfie.setImageBitmap(bitmap);
 
 
 

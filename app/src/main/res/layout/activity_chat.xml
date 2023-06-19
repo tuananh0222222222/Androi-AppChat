@@ -8,6 +8,79 @@
     android:layout_height="match_parent"
     tools:context=".activities.uiChat.ChatActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutToolbar"
+        android:background="@color/send_btn"
+
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:translationZ="@dimen/_5sdp"
+        android:elevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_back_v1"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:layout_marginBottom="3dp"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageBack"
+            app:layout_constraintStart_toEndOf="@id/imageBack"
+            app:layout_constraintTop_toTopOf="@id/imageBack"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"    />
+
+        <TextView
+            android:id="@+id/textAvabilitys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_2sdp"
+            android:text="@string/online"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="43dp"
+
+
+             />
+
+        <ImageView
+            android:id="@+id/fabNewChat"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/ic_videp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.957"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:layout_editor_absoluteY="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/viewBackground"
         android:layout_width="match_parent"
@@ -16,40 +89,21 @@
         android:background="@drawable/background_content_top"
         app:layout_constraintBottom_toTopOf="@+id/layoutSend"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="36dp" />
+
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="28dp" />
 
     <View
         android:id="@+id/headerBackground"
-        android:background="@color/white"
-
-        app:layout_constraintBottom_toTopOf="@id/viewSupporter"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:background="@color/send_btn"
+        app:layout_constraintBottom_toTopOf="@id/viewSupporter"
+        app:layout_constraintTop_toTopOf="@+id/viewBackground" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageBack"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginLeft="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:padding="@dimen/_5sdp"
-        android:src="@drawable/ic_back_v1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/send_btn"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"   />
 
-    <ImageView
-        android:layout_width="@dimen/_25sdp"
-        android:layout_height="@dimen/_25sdp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="28dp"
-        android:src="@drawable/ic_videp"
-        app:layout_constraintEnd_toEndOf="@+id/imageInfo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/send_btn" />
+
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageInfo"
@@ -65,28 +119,15 @@
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"   />
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:ellipsize="end"
 
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageBack"
-        app:layout_constraintStart_toEndOf="@id/imageBack"
-        app:layout_constraintTop_toTopOf="@id/imageBack"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"    />
 
     <View
         android:id="@+id/viewSupporter"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@id/imageBack"
+        android:layout_marginTop="@dimen/_1sdp"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+
         android:translationZ="@dimen/_10ssp"
 
         />
@@ -162,16 +203,4 @@
         android:layout_height="@dimen/_30sdp"
         tools:ignore="LabelFor" />
 
-    <TextView
-        android:id="@+id/textAvabilitys"
-        android:background="@color/send_btn"
-        android:padding="@dimen/_2sdp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_10ssp"
-        android:text="@string/online"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/viewSupporter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

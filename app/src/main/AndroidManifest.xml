@@ -14,9 +14,12 @@
         android:theme="@style/Theme.Appchat"
         tools:targetApi="31">
         <activity
-            android:name=".activities.uiChat.ChatActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".activities.uiChat.ProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.uiChat.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.uiChat.UserActivity"
             android:exported="false" />
@@ -37,7 +40,6 @@
         <activity
             android:name=".activities.uiChat.MainActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
