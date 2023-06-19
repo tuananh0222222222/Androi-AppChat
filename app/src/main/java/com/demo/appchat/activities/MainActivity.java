@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
     }
     private  void setListener(){
 
-        mainBinding.imageSignout.setOnClickListener(v-> signOut());
+//        mainBinding.imageSignout.setOnClickListener(v-> signOut());
 
         mainBinding.fabNewChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity implements ConversionListener  {
         byte[] bytes = Base64.decode(preferenceManager.getString(Constants.KEY_IMAGE),Base64.DEFAULT);
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-//        mainBinding.imageProfie.setImageBitmap(bitmap);
+//       mainBinding.imageProfie.setImageBitmap(bitmap);
 
 
 
